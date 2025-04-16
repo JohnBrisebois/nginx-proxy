@@ -13,6 +13,8 @@ services:
       - "443:443"
     depends_on:
       - certbot
+    networks:
+      - webnet
 
   certbot:
     image: certbot/certbot
@@ -21,3 +23,9 @@ services:
       - ./data/certbot/conf:/etc/letsencrypt
       - ./data/certbot/www:/var/www/certbot
     entrypoint: "/bin/sh -c 'while :; do sleep 2073600; done'"
+    networks:
+      - webnet
+
+networks:
+  webnet:
+    external: true
