@@ -23,7 +23,7 @@ services:
     volumes:
       - ./certbot/www:/var/www/certbot
       - ./certbot/conf:/etc/letsencrypt
-networks:
+    networks:
       - webnet
 networks:
   webnet:
