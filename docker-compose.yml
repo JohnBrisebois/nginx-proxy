@@ -18,13 +18,11 @@ services:
   certbot:
     image: certbot/certbot
     container_name: certbot
-    entrypoint: ["certbot"]  # This specifies the entrypoint as the certbot command
-    command: ["certonly", "--webroot", "--webroot-path=/var/www/certbot", "--email", "blenderjohn15@gmail.com", "--agree-tos", "--no-eff-email", "-d", "johnbrisebois.com", "-d", "www.johnbrisebois.com"]
     volumes:
       - ./certbot/www:/var/www/certbot
       - ./certbot/conf:/etc/letsencrypt
-    networks:
-      - webnet
+    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do sleep 1d & wait $${!}; done'"  # Keep Certbot running
+
 networks:
   webnet:
     external: true
