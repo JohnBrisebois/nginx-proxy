@@ -18,11 +18,12 @@ services:
   certbot:
     image: certbot/certbot
     container_name: certbot
+    entrypoint: ["certbot"]  # This specifies the entrypoint as the certbot command
+    command: ["certonly", "--webroot", "--webroot-path=/var/www/certbot", "--email", "blenderjohn15@gmail.com", "--agree-tos", "--no-eff-email", "-d", "johnbrisebois.com", "-d", "www.johnbrisebois.com"]
     volumes:
       - ./certbot/www:/var/www/certbot
       - ./certbot/conf:/etc/letsencrypt
-    command: certbot certonly --webroot --webroot-path=/var/www/certbot --email blenderjohn15@gmail.com --agree-tos --no-eff-email -d johnbrisebois.com -d www.johnbrisebois.com
-    networks:
+networks:
       - webnet
 networks:
   webnet:
