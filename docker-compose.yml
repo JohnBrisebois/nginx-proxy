@@ -21,15 +21,9 @@ services:
     volumes:
       - ./certbot/www:/var/www/certbot
       - ./certbot/conf:/etc/letsencrypt
-    command: certonly \
-      --webroot \
-      --webroot-path=/var/www/certbot \
-      --email blenderjohn15@gmail.com \
-      --agree-tos \
-      --no-eff-email \
-      -d johnbrisebois.com \
-      -d www.johnbrisebois.com
-
+    command: /bin/sh -c "certbot certonly --webroot --webroot-path=/var/www/certbot --email blenderjohn15@gmail.com --agree-tos --no-eff-email -d johnbrisebois.com -d www.johnbrisebois.com"
+    networks:
+      - webnet
 networks:
   webnet:
     external: true
