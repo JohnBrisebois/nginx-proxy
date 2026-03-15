@@ -1,6 +1,9 @@
 #!/bin/bash
+set -e
 
-docker exec certbot certbot renew --webroot -w /var/www/certbot --quiet
+/usr/bin/docker run --rm \
+  -v /home/john/nginx-proxy/data/certbot/conf:/etc/letsencrypt \
+  -v /home/john/nginx-proxy/data/certbot/www:/var/www/certbot \
+  certbot/certbot renew --webroot -w /var/www/certbot --quiet
 
-# If certs were renewed, reload Nginx
-docker exec nginx nginx -s reload
+/usr/bin/docker exec nginx nginx -s reload
